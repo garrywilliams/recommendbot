@@ -1,3 +1,4 @@
+# tests/test_simple_strategy.py
 import pytest
 from src.models import Member, Job
 from src.recommend import RecommendationEngine

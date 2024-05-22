@@ -2,14 +2,23 @@ import asyncio
 import httpx
 from dotenv import load_dotenv
 from pydantic import ValidationError
-from .config import settings
-from .models import Job, Member
+from src.config import settings
+from src.models import Job, Member
+from src.strategies.strategy_registry import StrategyRegistry
+import src.strategies.simple_strategy
 
 load_dotenv()
 
+
 class RecommendationEngine:
     def __init__(self):
-        pass
+        self.strategy = self.get_strategy()
+
+
+    def get_strategy(self):
+        strategy_name = settings.RECOMMENDATION_STRATEGY.lower()
+        return StrategyRegistry.get_strategy(strategy_name)
+
 
     # Use the async client to get the data
     async def fetch_json(self, url: str) -> list:
@@ -43,58 +52,6 @@ class RecommendationEngine:
 
         return members, jobs
 
-
-    # Extract the location from the bio (very basic approach!)
-    def get_location(self, bio: str) -> str:
-        bio = bio.lower()
-        if 'outside of london' in bio:
-            return 'outside of London'
-        elif 'london' in bio:
-            return 'London'
-        return None
-
-
-    # Match the job title with the bio (very basic approach!)
-    def match_job_title(self, bio: str, job_title: str) -> bool:
-        bio = bio.lower()
-        job_title = job_title.lower()
-        if 'design' in bio and 'design' in job_title:
-            return True
-        if 'internship' in bio and 'internship' in job_title:
-            return True
-        if 'software developer' in bio and 'software developer' in job_title:
-            return True
-        if 'marketing' in bio and 'marketing' in job_title:
-            return True
-        return False
-
-
-    # Simple matching process
-    def recommend_for_member(self, member: Member, jobs: list[Job]) -> list[Job]:
-        member_bio = member.bio
-        member_location = member.location
-
-        def job_match(job: Job) -> bool:
-            job_location = job.location
-            job_title = job.title
-
-            if member_location == 'outside of London' and job_location == 'London':
-                return False
-            if member_location and member_location != 'outside of London' and job_location != member_location:
-                return False
-
-            return self.match_job_title(member_bio, job_title)
-
-        return [job for job in jobs if job_match(job)]
-
-
-    # Get the members and jobs and then recommend jobs for each member
-    def recommend_jobs(self, jobs: list[Job], members: list[Member]) -> dict[str, list[Job]]:
-        for member in members:
-            member.location = self.get_location(member.bio)
-
-        recommendations = {
-            member.name: self.recommend_for_member(member, jobs)
-            for member in members
-        }
-        return recommendations
+    # Use the strategy to recommend the jobs
+    def recommend_jobs(self, jobs, members):
+        return self.strategy.recommend_jobs(jobs, members)
