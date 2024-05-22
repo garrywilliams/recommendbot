@@ -14,3 +14,4 @@ asyncio
 python-dotenv
 pydantic
 pydantic-settings
+openai

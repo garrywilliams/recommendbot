@@ -5,7 +5,10 @@ from pydantic import ValidationError
 from src.config import settings
 from src.models import Job, Member
 from src.strategies.strategy_registry import StrategyRegistry
+
+# There are ways to avoid this import, but time constraint!
 import src.strategies.simple_strategy
+import src.strategies.openai_strategy
 
 load_dotenv()
 
