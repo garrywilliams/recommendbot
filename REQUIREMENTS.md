@@ -3,16 +3,16 @@
 ## Overview
 
 At Bright Network, matching graduates with their ideal first jobs and employers with their ideal graduate intake is core to what we do. This technical challenge is designed to give you a flavour of what it might be like to work for us and for us to assess the kind of developer you are and the skills and approach to problem-solving you're bringing to the table.
- 
+
 ## The Challenge
 
 In one of our suggested programming languages, please implement a very simple recommendations algorithm to match members to their perfect job.
 
 The code needs to fetch the required data from the following APIs:
 
-https://bn-hiring-challenge.fly.dev/members.json
+<https://bn-hiring-challenge.fly.dev/members.json>
 
-https://bn-hiring-challenge.fly.dev/jobs.json
+<https://bn-hiring-challenge.fly.dev/jobs.json>
 
 For each member, please print their name and their recommended job(s).
 

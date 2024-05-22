@@ -1,3 +1,16 @@
+# Dev requirements - would normally be in a separate file
 pandas
 numpy
 jupyterlab
+pytest
+coverage
+flake8
+ruff
+isort
+
+# Requirements
+httpx
+asyncio
+python-dotenv
+pydantic
+pydantic-settings
