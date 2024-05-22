@@ -43,7 +43,17 @@ A browser will open with the Jupyter Notebook interface. Open the `investigation
 
 ## Command line version
 
-To generate a list of members and their recommended jobs, after installing the dependencies: 
+You will need to create a .env file inside the project directory with the following content:
+
+```sh
+MEMBERS_URL=https://bn-hiring-challenge.fly.dev/members.json
+JOBS_URL=https://bn-hiring-challenge.fly.dev/jobs.json
+RECOMMENDATION_STRATEGY=simple
+```
+
+See .env-example for an example (you can copy it and rename it to .env).
+
+To generate a list of members and their recommended jobs, after installing the dependencies and configuring the .env file:
 
 ```sh
 python run.py
@@ -51,6 +61,7 @@ python run.py
 
 ## Testing
 
+To run the tests with pytest, execute the following command in the terminal:
 ```sh
 pytest
 ```
