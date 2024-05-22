@@ -12,6 +12,7 @@ See the requirements in [REQUIREMENTS.md](REQUIREMENTS.md) for further details.
 
 0. Initial repo & dev environment setup
 1. Investigate the data with a Jupyter Notebook
+2. Implement the recommendation algorithm (introducing asyncio and pydantic)
 
 ## Installation
 
